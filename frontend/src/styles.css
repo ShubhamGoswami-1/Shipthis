@@ -1,0 +1,12 @@
+form {
+    filter: brightness(100%);
+}
+
+body{
+    background-color: #000000;
+    background-image: linear-gradient(rgb(74, 68, 68), rgb(66, 60, 60));
+    background-image: url('./assets/images/ntfx-bck.jpg');
+    background-repeat: no-repeat;
+	background-size: cover; 
+    /* filter: brightness(85%); */
+}

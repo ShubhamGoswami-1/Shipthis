@@ -1,0 +1,38 @@
+<div class="tvshow-details">
+    <h2 class="title">{{ tvshow.title }}</h2>
+    <div class="row">
+      <div class="col-md-3">
+        <img class="poster" src="{{ tvshow.poster_url }}" alt="{{ tvshow.title }}">
+      </div>
+      <div class="col-md-9">
+        <p class="description">{{ tvshow.description }}</p>
+        <div class="details">
+          <div class="detail">
+            <span class="label">Cast:</span> {{ tvshow.cast }}
+          </div>
+          <div class="detail">
+            <span class="label">Director:</span> {{ tvshow.director ? tvshow.director : 'N/A' }}
+          </div>
+          <div class="detail">
+            <span class="label">Country:</span> {{ tvshow.country }}
+          </div>
+          <div class="detail">
+            <span class="label">Year:</span> {{ tvshow.release_year }}
+          </div>
+          <div class="detail">
+            <span class="label">Duration:</span> {{ tvshow.duration }}
+          </div>
+          <div class="detail">
+            <span class="label">Rating:</span> {{ tvshow.rating }}
+          </div>
+          <div class="detail">
+            <span class="label">Genres:</span> {{ tvshow.listed_in }}
+          </div>
+          <div class="detail">
+            <span class="label">Date added:</span> {{ tvshow.date_added }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

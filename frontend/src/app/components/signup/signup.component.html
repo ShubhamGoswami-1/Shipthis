@@ -1,0 +1,23 @@
+
+<nav>
+  
+</nav>
+
+<h3>FLETNIX</h3>
+
+<button class="login" (click)="goToLogin()">Log In</button>
+
+<!-- sign in form  starts -->
+
+<div class="sign-in-container">
+    <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm.value)" >
+      <h2>Sign Up</h2>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" ngModel required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" ngModel required>
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" ngModel required>
+      <button type="submit">Sign Up</button>
+    </form>
+</div>
