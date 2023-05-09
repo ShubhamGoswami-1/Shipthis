@@ -1,39 +1,4 @@
-<!-- <div class="contain mt-5 p-5">
-    <form #searchForm="ngForm" (ngSubmit)="getMovieName(searchForm.value)">
-        <div class="row">
-            <div class="mb-3 col-lg-10">
-                <input type="text" ngModel name="searchTerm" placeholder="Search movie here...">
-            </div>
-
-            <div class="col-lg-2">
-                <button class="btn btn-md">Search</button>
-            </div>
-
-        </div>
-    </form>
-</div> -->
-
-
-<!-- <div class="contain mt-5 p-5">
-<form>
-    <div class="form-group">
-      <input type="text" class="form-control" name="title" [(ngModel)]="searchTerm">
-    </div>
-    <button type="button" class="btn btn-primary" (click)="searchMovies(title)">Search</button>
-</form>
-</div> -->
-
-
-<!-- <div class="contain mt-5 p-5">
-  <form>
-    <div class="form-group">
-      <input type="text" class="form-control" name="title" [(ngModel)]="searchTerm">
-    </div>
-    <button type="button" class="btn btn-primary" (click)="searchTerm && searchMovies(searchTerm)">Search</button>
-  </form>
-</div> -->
-
-
+<!-- 
 <div class="contain mt-5 p-5">
   <form class="search-form">
     <div class="form-group">
@@ -41,49 +6,52 @@
     </div>
     <button type="button" class="btn btn-primary" (click)="searchTerm && searchMovies(searchTerm)">Search</button>
   </form>
+</div> -->
+
+<div class="header">
+  <h1>Search Shows/Movies</h1>
 </div>
 
+<div class="contain mt-5 p-5">
+
+
+
+  <form class="search-form">
+
+    <div class="form-div">
+
+      <input type="text" class="form-control-one" name="title" [(ngModel)]="searchTerm"
+        placeholder=" Search Movies or TvShow">
+
+      <span>
+        <button type="button" class="btn btn-primary"
+          (click)="searchTerm && searchMovies(searchTerm,typeofShow) ">Search</button>
+      </span>
+
+    </div>
+
+  </form>
+</div>
+
+<div class="form-group-filter">
+
+</div>
+
+<select class="form-control" name="type" [(ngModel)]="typeofShow">
+  <option value="TV Show">TV Show</option>
+  <option value="Movie">Movie</option>
+</select>
+
+
 <div class="card-container">
-  <div class="card" (click)="navigateToDetails(tvshow.show_id)" *ngFor="let tvshow of movies" >
+  <div class="card" (click)="navigateToDetails(tvshow.show_id)" *ngFor="let tvshow of movies">
     <div class="card-header">
       {{ tvshow.title }}
     </div>
     <div class="card-body">
       <p>Rating: {{ tvshow.rating }}</p>
       <p>Show ID: {{ tvshow.show_id }}</p>
+      <p>Date : {{ tvshow.date_added }}</p>
     </div>
   </div>
 </div>
-
-<!-- <ng-container *ngIf="!isLoading">
-<div class="card-container">
-  <div class="card" (click)="navigateToDetails(tvshow.show_id)" *ngFor="let tvshow of movies" >
-    <div class="card-header">
-      {{ tvshow.title }}
-    </div>
-    <div class="card-body">
-      <p>Rating: {{ tvshow.rating }}</p>
-      <p>Show ID: {{ tvshow.show_id }}</p>
-    </div>
-  </div>
-</div>
-</ng-container> -->
-
-
-  <!-- <table *ngIf="movies.length > 0" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Cast</th>
-        <th>Genre</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let movie of movies">
-        <td>{{ movie.title }}</td>
-        <td>{{ movie.cast.join(', ') }}</td>
-        <td>{{ movie.genre }}</td>
-      </tr>
-    </tbody>
-  </table> -->
-  

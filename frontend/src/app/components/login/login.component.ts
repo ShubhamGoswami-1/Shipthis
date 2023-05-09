@@ -1,13 +1,21 @@
 import { Component , OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CookieService } from '../../service/cookie-service';
+// import { CookieOptions, CookieService as NgxCookieService } from 'ngx-cookie';
 
+interface LoginResponse {
+  userData: any;
+  accessToken: string;
+  age: number;
+}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent {
 
   email: string | undefined;
@@ -23,31 +31,33 @@ export class LoginComponent {
       "age" : formData.age,
       "password" : formData.password,
     };
-    // console.log(bodyData);
-    // this.http.post('http://localhost:3000/login', bodyData).subscribe(
-    //   (response) => {
-    //     // console.log(response);
-    //     formData.email = '';
-    //     formData.age = '';
-    //     formData.password = '';
-    //     formData.resetForm(); 
-    //     console.log("lets go to welcome");
-    //     // console.log(this.router);
-    //     this.router.navigate(['welcome']);
-       
-    //   },
-    //   error => {
-    //   console.error(error);
-    //   // handle the error
-    // });
-    this.http.post('http://localhost:3000/login', bodyData).subscribe(result => {
-      if(result){
-        this.router.navigate(['welcome']);
+    
+
+    
+    this.http.post<LoginResponse>('http://localhost:3000/login', bodyData).subscribe(result => {
+      // if (result && result.accessToken) {
+      //   console.log(result);
+      //   localStorage.setItem("token", result.accessToken);
+      //   localStorage.setItem("userData", result.userData.age)
+      //   // this.router.navigate(['welcome']);
+      //   this.router.navigate(['welcome'], { queryParams: { from: 'navigation' } });
+      // } else {
+      //   this.router.navigate(['login']);
+      // }
+      if (result && result.accessToken) {
+        console.log(result);
+        localStorage.setItem("token", result.accessToken);
+        localStorage.setItem("userData", JSON.stringify(result.userData)); // Store userData in local storage
+        this.router.navigate(['welcome'], { queryParams: { from: 'navigation' } });
+      } else {
+        this.router.navigate(['login']);
       }
     });
 
   }
 
+
+  
   ngOnInit() : void {
 
   }

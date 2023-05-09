@@ -1,5 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken")
+
+const secretKey = 'super-secret';
 
 const db = require("../data/database");
 
@@ -7,35 +10,35 @@ const router = express.Router();
 
 
 
-router.get("/signup", function (req, res) {
-  let sessionInputData = req.session.inputData;
-  if(!sessionInputData) {
-    sessionInputData = {
-      hasError: false,
-      email: '',
-      confirmEmail: '',
-      password: ''
-    };
-  }
+// router.get("/signup", function (req, res) {
+//   let sessionInputData = req.session.inputData;
+//   if(!sessionInputData) {
+//     sessionInputData = {
+//       hasError: false,
+//       email: '',
+//       confirmEmail: '',
+//       password: ''
+//     };
+//   }
 
-  req.session.inputData = null;
-  // res.render("signup", { inputData: sessionInputData });
-});
+//   req.session.inputData = null;
+//   // res.render("signup", { inputData: sessionInputData });
+// });
 
-router.get("/login", function (req, res) {
-  let sessionInputData = req.session.inputData;
+// router.get("/login", function (req, res) {
+//   let sessionInputData = req.session.inputData;
 
-  if(!sessionInputData) {
-    sessionInputData = {
-      hasError: false,
-      email: '',
-      password: ''
-    };
-  }
+//   if(!sessionInputData) {
+//     sessionInputData = {
+//       hasError: false,
+//       email: '',
+//       password: ''
+//     };
+//   }
 
-  req.session.inputData = null;
-  // res.render("login", { inputData: sessionInputData });
-});
+//   req.session.inputData = null;
+//   // res.render("login", { inputData: sessionInputData });
+// });
 
 
 router.post("/signup", async function (req, res) {
@@ -52,16 +55,16 @@ router.post("/signup", async function (req, res) {
     !enteredEmail.includes("@")
   ) {
 
-    req.session.inputData = {
-      hasError: true,
-      message: 'Invalid input - please check your data',
-      email: enteredEmail,
-      password: enteredPassword
-    };
+    // req.session.inputData = {
+    //   hasError: true,
+    //   message: 'Invalid input - please check your data',
+    //   email: enteredEmail,
+    //   password: enteredPassword
+    // };
 
-    req.session.save(function() {
-      res.redirect("/signup");
-    });
+    // req.session.save(function() {
+    //   res.redirect("/signup");
+    // });
     return
   }
 
@@ -71,16 +74,16 @@ router.post("/signup", async function (req, res) {
     .findOne({ email: enteredEmail });
 
   if(existingUser){
-    req.session.inputData = {
-      hasError: true,
-      message: 'User exists already!',
-      email: enteredEmail,
-      // confirmEmail: enteredConfirmEmail,
-      password: enteredPassword
-    };
-    req.session.save(function() {
-      res.redirect('/signup');
-    })
+    // req.session.inputData = {
+    //   hasError: true,
+    //   message: 'User exists already!',
+    //   email: enteredEmail,
+    //   // confirmEmail: enteredConfirmEmail,
+    //   password: enteredPassword
+    // };
+    // req.session.save(function() {
+    //   res.redirect('/signup');
+    // })
     return ;
   }
 
@@ -100,7 +103,7 @@ router.post("/signup", async function (req, res) {
   res.status(200).json({ message: 'Login Successful' });
 });
 
-
+/*
 router.post("/login", async function (req, res) {
   const userData = req.body;
   console.log(userData);
@@ -119,10 +122,10 @@ router.post("/login", async function (req, res) {
       email: enteredEmail,
       password: enteredPassword
     };
-    req.session.save(function() {
-      res.redirect("/login");
-    });
-    return;
+    // req.session.save(function() {
+    //   res.redirect("/login");
+    // });
+    // return;
   }
 
   const passwordsAreEqual = await bcrypt.compare(
@@ -143,32 +146,43 @@ router.post("/login", async function (req, res) {
     return;
   }
 
-  req.session.user = { id: existingUser._id, email: existingUser.email };
-  req.session.isAuthenticated = true;
-  req.session.save(function () {
-    console.log("loggedin");
-    // res.redirect("/profile");
-    res.status(200).json({ message: 'Login Successful' });
+  jwt.sign(userData, 'super-secret',{expiresIn: '1h'}, (err, accessToken) => {
+    if(err){
+      console.log(err);
+    }
+    res.json({accessToken});
   });
+
+
+  // req.session.user = { id: existingUser._id, email: existingUser.email };
+  // req.session.isAuthenticated = true;
+  // req.session.save(function () {
+  //   console.log("loggedin");
+  //   // res.redirect("/profile");
+  //   res.status(200).json({ message: 'Login Successful' });
+  // });
 });
+*/
 
-router.get("/admin",async function (req, res) {
-  if(!res.locals.isAuth){ // if(!req.session.user)
-    return res.status(401).render('401');
-  }
 
-  if(!res.locals.isAdmin){
-    return res.status(403).render('403');
-  }
 
-  res.render("admin");
-});
+// router.get("/admin",async function (req, res) {
+//   if(!res.locals.isAuth){ // if(!req.session.user)
+//     return res.status(401).render('401');
+//   }
+
+//   if(!res.locals.isAdmin){
+//     return res.status(403).render('403');
+//   }
+
+//   res.render("admin");
+// });
 
 
 router.post("/logout", function (req, res) {
-  req.session.user = null;
-  req.session.isAuthenticated = false;
-  res.redirect('/');
+  // req.session.user = null;
+  // req.session.isAuthenticated = false;
+  // res.redirect('/');
 });
 
 module.exports = router;

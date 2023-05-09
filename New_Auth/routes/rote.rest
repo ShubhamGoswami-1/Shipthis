@@ -1,20 +1,25 @@
 GET http://localhost:3000/api/tvshows
-
+Content-Type: application/json
+Authorization: super-secret eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJoYW1idHBzNTg4QGdtYWlsLmNvbSIsImFnZSI6MjEsInBhc3N3b3JkIjoiYWJjZGVmZyIsImlhdCI6MTY4MzY0MDUyNCwiZXhwIjoxNjgzNjQ0MTI0fQ.lwSEZ9qWOmcbrEIVfyGBi5eAN4SF1zM3GIqmywpgC40
 
 ###
 
-GET http://localhost:3000/api/tvshows/Kota Factory
+GET http://localhost:3000/api/tvshows/R
 
 ####
 GET http://localhost:3000/signup
 
 
 ###
-POST http://localhost:3000/signup
+POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "email" : "test123@test.com",
-    "password": "123",
+    "email" : "shubhambtps588@gmail.com",
+    "password": "abcdefg",
     "age": "21"
 }
+
+###
+GET http://localhost:3000/api/showtv
+Content-Type: application/json

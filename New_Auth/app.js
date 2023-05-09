@@ -2,6 +2,7 @@ const db = require('./data/database');
 const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const jwt = require("jsonwebtoken")
 
 const express = require('express');
 const session = require('express-session');
@@ -14,12 +15,12 @@ const tvshowroutes = require('./routes/routes');
 
 
 const app = express();
-const MongoDBStore = mongodbStore(session);
-const sessionStore = new MongoDBStore({
-  uri: 'mongodb://127.0.0.1:27017',
-  databaseName: 'showstv',
-  collection: 'sessions'
-});
+// const MongoDBStore = mongodbStore(session);
+// const sessionStore = new MongoDBStore({
+//   uri: 'mongodb://127.0.0.1:27017',
+//   databaseName: 'showstv',
+//   collection: 'sessions'
+// });
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -31,32 +32,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(session({
-  secret: 'super-secret',
-  resave: false,
-  saveUninitialized: false,
-  store: sessionStore,
-  cookie: {
-    maxAge: 30 * 24 * 60 * 60 * 1000
-  }
-}));
+// app.use(session({
+//   secret: 'super-secret',
+//   resave: false,
+//   saveUninitialized: false,
+//   store: sessionStore,
+//   cookie: {
+//     maxAge: 30 * 24 * 60 * 60 * 1000
+//   }
+// }));
 
-app.use(async function(req, res, next) {
-  const user = req.session.user;
-  const isAuth = req.session.isAuthenticated;
+// app.use(async function(req, res, next) {
+//   const isAuth = req.session.isAuthenticated;
 
-  if(!user || !isAuth){
-    return next();
-  }
+//   if(!user || !isAuth){
+//     return next();
+//   }
 
-  const userDoc = await db.getDb().collection('users').findOne({ _id: user.id });
-  const isAdmin = userDoc.isAdmin;
+//   const userDoc = await db.getDb().collection('users').findOne({ _id: user.id });
+//   const isAdmin = userDoc.isAdmin;
 
-  res.locals.isAuth = isAuth;
-  res.locals.isAdmin = isAdmin;
+//   res.locals.isAuth = isAuth;
+//   res.locals.isAdmin = isAdmin;
 
-  next();
-});
+//   next();
+// });
 
 
 app.use(demoRoutes);

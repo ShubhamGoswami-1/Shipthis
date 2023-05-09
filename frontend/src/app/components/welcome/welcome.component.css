@@ -32,7 +32,8 @@
   
   .search-form {
     display: inline-block;
-    width: 80%;
+    width: 100%;
+
   }
   
   .contain {
@@ -40,24 +41,28 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width:100%;
+
   }
   
   .search-form {
-    display: flex;
+    /* display: flex; */
     flex-direction: row;
     align-items: center;
-    width: 80%;
+    width:80%;
   }
   
   .form-control {
-    flex: 1;
-    margin-right: 10px;
-    width: 450%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-left: 150px;
   }
   
   .btn-primary {
     background-color: rgb(255, 0, 0);
-    margin-left: 800px;
+    margin-left: 8px;
   }
   
   body{
@@ -66,4 +71,27 @@
     background-image: url('https://m.media-amazon.com/images/M/MV5BZmI2MzU3NmMtNGVmMS00YzczLWIzMGQtNDU0MjcyNTYzODEyXkEyXkFqcGdeQWxiaWFtb250._V1_.jpg');
     background-repeat: no-repeat;
 	  background-size: cover; 
+  }
+
+  .form-group-filter {
+    width: 8px;
+    margin-left: 1px;
+    margin-bottom: 2px;
+  }
+
+  .form-control-one{
+    width: 100%;
+  }
+
+  .form-div{
+    display: flex;
+    width: 100%;
+  }
+
+  .header {
+    padding: 20px;
+    text-align: center;
+    background: #F6BA6F;
+    color: white;
+    font-size: 30px;
   }
